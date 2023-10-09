@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Style{
+    <link rel="stylesheet" href="~/css/mystyle.css" />
+}
+
+@using la_mia_pizzeria_static.Models.Database_Models;
+@model PizzaFormModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <h1 class="mt-5 mb-4">Modifica pizza</h1>
+            </div>
+            <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Pizza.Id" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Pizza.Id" />    
+                <div class="mb-3">
+                    <label asp-for="Pizza.Name" class="form-label"><b>Nome:</b> </label>
+                    <div>
+                        <input asp-for="Pizza.Name" class="d-block w-100" />
+                        <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Pizza.Description" class="form-label"><b>Descrizione:</b> </label>
+                    <div>
+                        <textarea asp-for="Pizza.Description" rows="10" class="d-block w-100"></textarea>
+                        <span asp-validation-for="Pizza.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Pizza.Price" class="form-label"><b>Prezzo:</b> </label>
+                    <div>
+                        <input asp-for="Pizza.Price" class="d-block w-100" />
+                        <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Pizza.Image" class="form-label"><b>Immagine:</b> </label>
+                    <div>
+                        <input asp-for="Pizza.Image" class="d-block w-100" />
+                        <span asp-validation-for="Pizza.Image" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <strong>Categoria:</strong>
+                    <select asp-for="Pizza.CategoryId" rows="10" class="d-block w-100">
+                        <option value=""></option>
+                        @foreach (Category category in Model.Categories)
+                        {
+                            @if (Model.Pizza.CategoryId == category.Id)
+                            {
+                                <option value="@category.Id" selected>@category.Title</option>
+                            }
+                            else
+                            {
+                                <option value="@category.Id">@category.Title</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <strong>Indredienti: </strong>
+                    <select asp-for="SelectedIngredientsId"
+                            multiple="multiple"
+                            size="10"
+                            class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                            asp-items="@Model.Ingredients">
+                    </select>
+                </div>
+
+
+                <div class="text-end">
+                    <input type="submit" class="btn btn-small btn btn-warning fw-bold text-white" value="Aggiorna Pizza">
+                </div>
+
+                <div class="text-start mt-5 mb-2"> 
+                    <a class="btn btn-secondary mt-5" href="@Url.Action("Index", "Pizza")" role="button">
+                        <b>Torna Indietro</b>
+                    </a>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>

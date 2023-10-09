@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Style{
+    <link rel="stylesheet" href="~/css/mystyle.css" />
+}
+
+
+@using la_mia_pizzeria_static.Models.Database_Models;
+
+@model Pizza
+
+<div class="container py-3 ms-2">
+    <div class="row detail-pizza">
+        <div class="col-12"> 
+            <div class="d-flex align-items-center">
+                <h1 class="mt-5 mb-5">Dettaglio pizza</h1>
+            </div>
+            <div class="post-single-image-container mb-4">
+                <img src="@Model.Image" class="rounded-4 image-detail">
+            </div>
+            <p class="mt-4">
+                <strong>Nome:</strong>
+                @Model.Name
+            </p>
+            <p>
+                <strong>Descrizione:</strong>
+                @Model.Description
+            </p>
+            <p>
+                <strong>Categoria:</strong>
+                @if (Model.Category != null)
+                {
+                    <span>@Model.Category.Title</span>
+                }
+                else
+                {
+                    <span>Nessuna categoria associata</span>
+                }
+            </p>
+
+            <p>
+                <strong>Ingredienti:</strong>
+                @if (Model.Ingredients != null && Model.Ingredients.Count > 0)
+                {
+                    <ul>
+                        @foreach (Ingredient ingredient in Model.Ingredients)
+                        {
+                            <li>@ingredient.Title</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span> Non hai ancora ingredienti associati!</span>
+                }
+            </p>
+
+            <p class="mb-5"> 
+                <strong>Prezzo:</strong>
+               € @Model.Price.ToString("0.00")
+            </p>
+            <p class="back-button">
+                <a class="btn btn-secondary" href="@Url.Action("Index", "Pizza")" role="button">
+                    <b>Torna Indietro</b>     
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

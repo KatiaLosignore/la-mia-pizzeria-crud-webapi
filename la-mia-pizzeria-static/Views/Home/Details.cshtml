@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "_LayoutUser";
+}
+
+@section StyleUser{
+
+    <link rel="stylesheet" href="~/css/mystyleuser.css" />
+}
+
+
+@using la_mia_pizzeria_static.Models.Database_Models;
+
+@model Pizza
+
+<div class="container text-center detail-pizza py-4 rounded-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center">
+                <h1 class="mt-3 mb-4 text-danger fw-bold">Dettaglio pizza</h1>
+            </div>
+            <div class="post-single-image-container">
+                <img class="rounded-5 text-center" width="750" src="@Model.Image">
+            </div>
+            <p class="mt-4">
+                <strong>Nome:</strong>
+                @Model.Name
+            </p>
+            <p class="mt-4">
+                <strong>Categoria:</strong>
+                @Model.Category?.Title
+            </p>
+            <p>
+                <strong>Descrizione:</strong>
+                @Model.Description
+            </p>
+            <p>
+                <strong>Ingredienti:</strong>
+                @if (Model.Ingredients != null && Model.Ingredients.Count > 0)
+                {
+                    <div class"text-start">
+                        @foreach (Ingredient ingredient in Model.Ingredients)
+                        {
+                            <p> @ingredient.Title</p>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <span> Non hai ancora ingredienti associati!</span>
+                }
+            </p>
+            <p>
+                <strong>Prezzo:</strong>
+                € @Model.Price.ToString("0.00")
+            </p>
+            <p>
+            <a class="btn btn-danger" href="@Url.Action("Index", "Home")" role="button">
+                <b>Torna Indietro</b>
+            </a>
+
+            </p>
+        </div>
+    </div>
+</div>
+
+ 

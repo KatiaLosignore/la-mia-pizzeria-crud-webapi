@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Style{
+    <link rel="stylesheet" href="~/css/mystyle.css" />
+}
+
+
+@using la_mia_pizzeria_static.Models.Database_Models;
+
+@model PizzaFormModel
+
+<div class="container form-group">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mt-5 mb-4">Pagina creazione nuova Pizza</h1>
+        </div>
+        <form asp-controller="Pizza" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label asp-for="Pizza.Name" class="form-label"><b>Nome:</b> </label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Pizza.Name">
+                    <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Pizza.Description" class="form-label"><b>Descrizione:</b></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Pizza.Description">
+                    <span asp-validation-for="Pizza.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Pizza.Price" class="form-label"><b>Prezzo:</b></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Pizza.Price">
+                    <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <strong>Categoria:</strong>
+                <select asp-for="Pizza.CategoryId" rows="10" class="d-block w-100">
+                    <option value="">Seleziona la categoria...</option>
+                    @foreach (Category category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Title</option>
+                    }
+                </select>
+            </div>
+
+            <!-- select multipla per gli Ingredienti -->
+            <div class="mb-3">
+                <strong>Seleziona Ingredienti:</strong>
+                <select asp-for="SelectedIngredientsId"
+                        multiple="multiple"
+                        size="10"
+                        class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                        asp-items="@Model.Ingredients">
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Pizza.Image" class="form-label"><b>Immagine:</b></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Pizza.Image">
+                    <span asp-validation-for="Pizza.Image" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary mt-4 mb-5 "><b>Crea nuova pizza</b></button> 
+            </div>
+            <div class="mt-5">
+                <a class="btn btn-secondary" href="@Url.Action("Index", "Pizza")" role="button">
+                    <b>Torna Indietro</b>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

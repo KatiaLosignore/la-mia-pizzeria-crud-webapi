@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "_LayoutUser";
+}
+
+@section StyleUser{
+
+    <link rel="stylesheet" href="~/css/mystyleuser.css" />
+}
+
+
+@model List<Pizza>
+
+@if (Model.Count() == 0)
+{
+    <h3>Non ci sono pizze da mostrare</h3>
+}
+else
+{
+    <a class="btn btn-danger mb-5" href="@Url.Action("Index", "Pizza")" role="button">
+        <b>Register</b>
+    </a>
+
+    <div class="album py-4 rounded-5">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-12">            
+                    <h1 class="text-danger display-2 text-center mb-5 fw-bold">Benvenuto nel sito della mia pizzeria</h1>
+                    <button class="btn btn-success mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasManagePizza" aria-controls="offcanvasManagePizza">
+                        CARRELLO
+                    </button>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                @foreach (Pizza pizza in Model)
+                {
+                    <div class="col card-pizza">
+                        <div class="card shadow-sm">
+                            <img src="@pizza.Image" class="card-img-top object-fit-cover" height="225" role="img" focusable="false" alt="La vera Pizza" />
+                            <div class="card-body">
+                                <h3 class="card-text">@pizza.Name</h3>
+                                <p class="card-text fw-bold">Categoria: @pizza.Category?.Title</p>
+                                <p class="card-text mb-3">@pizza.Description</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group ">
+                                        <button type="button" class="btn text-light btn-warning btn-sm btn-outline-primary fw-bold">+</button>
+                                        <button type="button" class="btn text-light btn-danger btn-sm btn-outline-secondary fw-bold">-</button>
+                                    </div>
+                                </div>
+                                <div class="card-item fw-semibold pt-2 text-body-secondary bg-white px-0">
+                                    Prezzo: € @pizza.Price.ToString("0.00")
+                                </div>
+                                <div class="mtext-center button-details">
+                                    <a class="btn btn-danger btn-sm" href="@Url.Action("Details", "Home", new { id = pizza.Id })">
+                                        <b>Vedi dettaglio pizza</b>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+

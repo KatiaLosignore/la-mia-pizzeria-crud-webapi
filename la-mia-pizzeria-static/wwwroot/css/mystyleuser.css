@@ -1,0 +1,51 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('/img/background.jpg');
+    background-position: initial;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    margin-top: 35px;
+}
+
+
+.album {
+    background-color: rgb(255,206,85);
+}
+
+.detail-pizza {
+    background-color: rgb(255,206,85);
+    z-index: 3;
+}
+
+.card {
+    height: 690px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.card-pizza {
+    position: relative;
+}
+
+.card-pizza {
+    display:block;
+    transform: scale(1);
+    transition: all .2s linear;
+}
+
+.card-pizza:hover {
+    transform: scale(1.1);
+    z-index: 3;
+}
+
+.button-details {
+    position: absolute;
+    bottom: 20px;
+    left: 125px;
+}
+

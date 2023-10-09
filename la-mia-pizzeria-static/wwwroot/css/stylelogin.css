@@ -1,0 +1,38 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('/img/top-view-pizza.jpg');
+    background-position: initial;
+    background-repeat: no-repeat;
+    background-size: cover;    
+}
+
+
+header nav {
+    height: 100px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.login{
+    font-size: 45px;
+}
+
+.page {
+    font-size: 65px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 630px;
+    margin-bottom: 70px;
+}
+
+.login-account {
+    display: none;
+}
+
