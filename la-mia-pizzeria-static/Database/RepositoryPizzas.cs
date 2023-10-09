@@ -62,7 +62,7 @@ namespace la_mia_pizzeria_static.Database
             }
         }
 
-        public bool ModifyPizza(int id, Pizza updatedPizza)
+        public bool ModifyPizza(int id, PizzaFormModel updatedPizza)
         {
             Pizza? pizzaToUpdate = _db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Ingredients).FirstOrDefault();
 
@@ -70,11 +70,28 @@ namespace la_mia_pizzeria_static.Database
             {
                 pizzaToUpdate.Ingredients.Clear();
 
-                pizzaToUpdate.Name = updatedPizza.Name;
-                pizzaToUpdate.Description = updatedPizza.Description;
-                pizzaToUpdate.Price = updatedPizza.Price;
-                pizzaToUpdate.Image = updatedPizza.Image;
-                pizzaToUpdate.CategoryId = updatedPizza.CategoryId;
+                pizzaToUpdate.Name = updatedPizza.Pizza.Name;
+                pizzaToUpdate.Description = updatedPizza.Pizza.Description;
+                pizzaToUpdate.Price = updatedPizza.Pizza.Price;
+                pizzaToUpdate.Image = updatedPizza.Pizza.Image;
+                pizzaToUpdate.CategoryId = updatedPizza.Pizza.CategoryId;
+
+                updatedPizza.AddIngredientsToPizza(pizzaToUpdate, _db);
+
+                if (updatedPizza.SelectedIngredientsId != null)
+                {
+                    foreach (string ingredientSelectedId in updatedPizza.SelectedIngredientsId)
+                    {
+                        int intIngredientSelectedId = int.Parse(ingredientSelectedId);
+
+                        Ingredient? ingredientInDb = _db.Ingredients.Where(ingredient => ingredient.Id == intIngredientSelectedId).FirstOrDefault();
+
+                        if (ingredientInDb != null)
+                        {
+                            pizzaToUpdate.Ingredients.Add(ingredientInDb);
+                        }
+                    }
+                }
 
 
                 _db.SaveChanges();

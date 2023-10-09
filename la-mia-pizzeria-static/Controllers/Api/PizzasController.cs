@@ -33,7 +33,7 @@ namespace la_mia_pizzeria_static.Controllers.Api
 
 
         [HttpGet]
-        public IActionResult SearchArticles(string? search)
+        public IActionResult SearchPizza(string? search)
         {
             if (search == null)
             {
@@ -87,7 +87,7 @@ namespace la_mia_pizzeria_static.Controllers.Api
         }
 
         [HttpPut("{id}")]
-        public IActionResult Modify(int id, [FromBody] Pizza updatedPizza)
+        public IActionResult Modify(int id, [FromBody] PizzaFormModel updatedPizza)
         {
             bool result = _repoPizzas.ModifyPizza(id, updatedPizza);
 
