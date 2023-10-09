@@ -1201,3 +1201,15 @@
 09-10-2023 10:24:34 LOG: L'utente è arrivato sulla pagina Pizza > Index
 09-10-2023 10:26:11 LOG: L'utente è arrivato sulla pagina Pizza > Index
 09-10-2023 10:26:14 LOG: L'utente è arrivato sulla pagina Home > Index
+09-10-2023 13:18:14 LOG: L'utente è arrivato sulla pagina Home > Index
+09-10-2023 13:18:20 LOG: L'utente è arrivato sulla pagina Pizza > Index
+09-10-2023 13:18:22 LOG: L'utente è arrivato sulla pagina Home > Index
+09-10-2023 13:18:25 LOG: L'utente è arrivato sulla pagina Pizza > Index
+09-10-2023 13:18:27 LOG: L'utente è arrivato sulla pagina Home > Index
+09-10-2023 13:18:33 LOG: L'utente è arrivato sulla pagina Pizza > Index
+09-10-2023 13:18:50 LOG: L'utente è arrivato sulla pagina Pizza > Index
+09-10-2023 13:18:55 LOG: L'utente è arrivato sulla pagina Home > Index
+09-10-2023 13:19:01 LOG: L'utente è arrivato sulla pagina Pizza > Index
+09-10-2023 13:29:56 LOG: L'utente è arrivato sulla pagina Pizza > Index
+09-10-2023 13:30:33 LOG: L'utente è arrivato sulla pagina Home > Index
+09-10-2023 13:30:37 LOG: L'utente è arrivato sulla pagina Pizza > Index
