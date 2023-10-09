@@ -2,9 +2,11 @@
 using la_mia_pizzeria_static.Models.Database_Models;
 using la_mia_pizzeria_static.Nuova_cartella3;
 using la_mia_pizzeria_static.ValidationAttributes;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace la_mia_pizzeria_static.Models
 {
@@ -30,20 +32,15 @@ namespace la_mia_pizzeria_static.Models
         [ValidImagePath(ErrorMessage = "Percorso immagine non valido.")]
         public string Image { get; set; }
 
-
-
         // Creo la relazione 1:N con la classe Category
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
 
-
         // creo la relazione N a N con la classe Ingredient
         public List<Ingredient>? Ingredients { get; set; }
 
-
-
         public Pizza() { }
-        
+      
         public Pizza(string name, string description, float price, string image)
         {
             this.Name = name;

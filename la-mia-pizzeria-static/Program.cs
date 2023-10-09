@@ -23,11 +23,9 @@ builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 
-
 // Righe scritte nel live coding (Argomento Dependency Injection)
 builder.Services.AddScoped<ICustomLogger, CustomFileLogger>();
 builder.Services.AddScoped<PizzaContext, PizzaContext>();
-builder.Services.AddApplicationInsightsTelemetry();
 builder.Services.AddScoped<IRepositoryPizzas, RepositoryPizzas>();
 
 var app = builder.Build();

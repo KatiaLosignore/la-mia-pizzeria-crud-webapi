@@ -1,5 +1,8 @@
 ﻿using la_mia_pizzeria_static.Models;
 using Microsoft.EntityFrameworkCore;
+using la_mia_pizzeria_static.Models.Database_Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace la_mia_pizzeria_static.Database
 {
