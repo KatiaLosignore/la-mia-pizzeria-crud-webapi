@@ -16,33 +16,33 @@
         <div class="col-12">
             <h1 class="mt-5 mb-4">Pagina creazione nuova Pizza</h1>
         </div>
-        <form asp-controller="Pizza" asp-action="Create" method="post">
+        <form id="create-form" asp-controller="Pizza" asp-action="Create" method="post">
             @Html.AntiForgeryToken()
             <div class="mb-3">
                 <label asp-for="Pizza.Name" class="form-label"><b>Nome:</b> </label>
                 <div>
-                    <input type="text" class="form-control" asp-for="Pizza.Name">
+                    <input id="input-name" type="text" class="form-control" asp-for="Pizza.Name">
                     <span asp-validation-for="Pizza.Name" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3">
                 <label asp-for="Pizza.Description" class="form-label"><b>Descrizione:</b></label>
                 <div>
-                    <input type="text" class="form-control" asp-for="Pizza.Description">
+                    <input id="input-description" type="text" class="form-control" asp-for="Pizza.Description">
                     <span asp-validation-for="Pizza.Description" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3">
                 <label asp-for="Pizza.Price" class="form-label"><b>Prezzo:</b></label>
                 <div>
-                    <input type="text" class="form-control" asp-for="Pizza.Price">
+                    <input id="input-price" type="text" class="form-control" asp-for="Pizza.Price">
                     <span asp-validation-for="Pizza.Price" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="mb-3">
                 <strong>Categoria:</strong>
-                <select asp-for="Pizza.CategoryId" rows="10" class="d-block w-100">
+                <select id="input-category" asp-for="Pizza.CategoryId" rows="10" class="d-block w-100">
                     <option value="">Seleziona la categoria...</option>
                     @foreach (Category category in Model.Categories)
                     {
@@ -54,7 +54,7 @@
             <!-- select multipla per gli Ingredienti -->
             <div class="mb-3">
                 <strong>Seleziona Ingredienti:</strong>
-                <select asp-for="SelectedIngredientsId"
+                <select id="input-ingredients" asp-for="SelectedIngredientsId"
                         multiple="multiple"
                         size="10"
                         class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
@@ -65,13 +65,13 @@
             <div class="mb-3">
                 <label asp-for="Pizza.Image" class="form-label"><b>Immagine:</b></label>
                 <div>
-                    <input type="text" class="form-control" asp-for="Pizza.Image">
+                    <input id="input-image" type="text" class="form-control" asp-for="Pizza.Image">
                     <span asp-validation-for="Pizza.Image" class="text-danger"></span>
                 </div>
 
             </div>
             <div class="text-end">
-                <button type="submit" class="btn btn-primary mt-4 mb-5 "><b>Crea nuova pizza</b></button> 
+                <button id ="create-button" type="submit" class="btn btn-primary mt-4 mb-5 "><b>Crea nuova pizza</b></button>
             </div>
             <div class="mt-5">
                 <a class="btn btn-secondary" href="@Url.Action("Index", "Pizza")" role="button">
@@ -81,3 +81,45 @@
         </form>
     </div>
 </div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        const createForm = document.getElementById("create-form");
+        const createButton = document.getElementById("create-button");
+
+        //chiamata axios post a Create api dove passo la pizza creata
+        createForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            //dati del form
+            const inputName = document.getElementById("input-name").value;
+            const inputDescription = document.getElementById("input-description").value;
+            const inputPrice = document.getElementById("input-price").value;
+            const inputImagePath = document.getElementById("input-image").value;
+            const inputCategoryId = document.getElementById("input-category").value;
+            const inputIngredients = document.getElementById("input-ingredients").value;
+            
+            //creo oggetto pizza del form
+            let newPizza = {
+                Name: inputPizzaName,
+                Description: inputPizzaDescription,
+                Price: inputPizzaPrice,
+                Image: inputPizzaImagePath,
+                CategoryId: inputCategoryId
+            }
+
+            createForm.addEventListener{
+
+                axios.post('/api/Pizzas/Create',newPizza,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                    }
+                });
+            });
+        }
+
+
+    </script>
+
+}

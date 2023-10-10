@@ -1,4 +1,5 @@
-﻿@{
+﻿@using la_mia_pizzeria_static.Models;
+@{
     Layout = "_LayoutUser";
 }
 
@@ -6,7 +7,6 @@
 
     <link rel="stylesheet" href="~/css/mystyleuser.css" />
 }
-
 
 <div>
     <a class="btn btn-danger mb-5" href="@Url.Action("Index", "Pizza")" role="button">
@@ -57,6 +57,7 @@
 ">
                     <!-- questo sontenitore verrà usato per mostrare le pizze ricercati -->
             </div>
+            
         </div>
     </div>
 
@@ -68,6 +69,7 @@
 @section Scripts {
 
     <script type="text/javascript">
+
 
         loadPizzas();
         document.getElementById("js_search_box").addEventListener('keyup', searchPizzas);
@@ -126,8 +128,9 @@
                                                    </div>
                                               </div>
                                               <div class="card-item fw-semibold pt-2 text-body-secondary bg-white px-0">
-                                                       Prezzo: € ${pizza.price}
+                                                       Prezzo: € ${pizza.price} 
                                               </div>
+                                                    
                                            </div>
                                        </div>                  
                                    </div>
@@ -141,6 +144,9 @@
 
             }
         }
+
+        
+        
                        
 
     </script>
