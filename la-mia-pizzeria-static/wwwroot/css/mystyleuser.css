@@ -7,7 +7,7 @@ body {
     background-position: initial;
     background-repeat: no-repeat;
     background-size: cover; 
-    margin-top: 35px;
+    margin-top: 25px;
 }
 
 
@@ -22,6 +22,7 @@ body {
 
 .card {
     height: 690px;
+    margin-bottom: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -49,3 +50,11 @@ body {
     left: 125px;
 }
 
+.title {
+    font-size: 55px;
+    margin-bottom: 55px;
+}
+
+.welcome {
+    font-size: 40px;
+}

@@ -8,16 +8,17 @@
 }
 
 
-
-<div class="container">
-
+<div>
     <a class="btn btn-danger mb-5" href="@Url.Action("Index", "Pizza")" role="button">
         <b>Register</b>
     </a>
 
+</div>
+
+
     <div class="row">
         <div class="col-12">
-            <h1 class="text-white text-center">Lista delle pizze</h1>
+            <h1 class="text-danger fw-bold text-center title">Lista delle pizze</h1>
             <div>
                 <input id="js_search_box" type="text" class="form-control my-3" placeholder="Cerca per titolo...">
             </div>
@@ -41,11 +42,23 @@
         </div>
     </div>
 
-    <div id="list-of-pizzas" class="row d-none">
-        <!-- questo sontenitore verrà usato per mostrare le pizze ricercati -->
+    <div class="album py-4 rounded-5">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-12">
+                    <h1 class="text-danger welcome text-center mb-5 fw-bold">Benvenuto nel sito della mia pizzeria</h1>
+                    <button class="btn btn-success mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasManagePizza" aria-controls="offcanvasManagePizza">
+                        CARRELLO
+                    </button>
+                </div>
+            </div>
+        <div>
+            <div id="list-of-pizzas" class="row d-none display-flex align-items-center">
+">
+                    <!-- questo sontenitore verrà usato per mostrare le pizze ricercati -->
+            </div>
+        </div>
     </div>
-
-</div>
 
 
     
@@ -67,75 +80,67 @@
 
 
         function loadPizzas(searchParam) {
-            axios.get('/api/Pizzas/SearchPizza', {
-                params: {
-                     search: searchParam
-                }
-            }).then((res) => {
-                console.log(res);
+
+            if (searchParam == "") {
+                axios.get('/api/Pizzas/GetPizzas')
+            } else {
+                axios.get('/api/Pizzas/SearchPizza', {
+                    params: {
+                        search: searchParam
+                    }
+
+                }).then((res) => {
+                    console.log(res);
                     let divNoPizzas = document.getElementById('row-no-pizzas')
                     let loadinSpinnerElement = document.getElementById("loading-spinner");
                     let listOfPizzasElement = document.getElementById('list-of-pizzas');
 
-                if (res.data.length == 0) {
+                    if (res.data.length == 0) {
 
-                    divNoPizzas.classList.remove('d-none');
-                    loadinSpinnerElement.classList.add("d-none");
+                        divNoPizzas.classList.remove('d-none');
+                        loadinSpinnerElement.classList.add("d-none");
 
-                } else {
-                    loadinSpinnerElement.classList.add("d-none");
-                    listOfPizzasElement.classList.remove("d-none");
+                    } else {
+                        loadinSpinnerElement.classList.add("d-none");
+                        listOfPizzasElement.classList.remove("d-none");
 
-                    listOfPizzasElement.innerHTML = "";
+                        listOfPizzasElement.innerHTML = "";
 
 
-                    res.data.forEach(pizza => {
-                        console.log(pizza);
+                        res.data.forEach(pizza => {
+                            console.log(pizza);
 
-                        listOfPizzasElement.innerHTML +=
-                          `<div class="album py-4 rounded-5">
-                               <div class="container">
-                                   <div class="row my-3">
-                                       <div class="col-12"                                  
-                                           <button class="btn btn-success mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasManagePizza" aria-    controls="offcanvasManagePizza">
-                                               CARRELLO
-                                           </button>
-                                       </div>
-                                   </div>
-                                   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-                                       <div class="col card-pizza d-flex">
-                                          <div class="card shadow-sm">
-                                              <img src="${pizza.image}" class="card-img-top object-fit-cover" height="225" role="img" focusable="false" alt="${pizza.name}" />
-                                              <div class="card-body">
-                                                   <h3 class="card-text">${pizza.name}</h3>
-                                                           <p class="card-text fw-bold">Categoria: ${pizza.category ? pizza.category.title : " "}</p>
-                                                   <p class="card-text mb-3">${pizza.description}</p>
-                                                   <div class="d-flex justify-content-between align-items-center">
-                                                       <div class="btn-group ">
-                                                           <button type="button" class="btn text-light btn-warning btn-sm btn-outline-primary fw-bold">+</button>
-                                                           <button type="button" class="btn text-light btn-danger btn-sm btn-outline-secondary fw-bold">-</button>
-                                                       </div>
-                                                  </div>
-                                                  <div class="card-item fw-semibold pt-2 text-body-secondary bg-white px-0">
+                            listOfPizzasElement.innerHTML +=
+                                `
+                                  <div class="col-4 card-pizza">
+                                      <div class="card shadow-sm">
+                                          <img src="${pizza.image}" class="card-img-top object-fit-cover" height="225" role="img" focusable="false" alt="${pizza.name}" />
+                                          <div class="card-body">
+                                              <h3 class="card-text">${pizza.name}</h3>
+                                              <p class="card-text fw-bold">Categoria: ${pizza.category ? pizza.category.title : " "}</p>
+                                              <p class="card-text mb-3">${pizza.description}</p>
+                                              <div class="d-flex justify-content-between align-items-center">
+                                                  <div class="btn-group ">
+                                                      <button type="button" class="btn text-light btn-warning btn-sm btn-outline-primary fw-bold">+</button>
+                                                       <button type="button" class="btn text-light btn-danger btn-sm btn-outline-secondary fw-bold">-</button>
+                                                   </div>
+                                              </div>
+                                              <div class="card-item fw-semibold pt-2 text-body-secondary bg-white px-0">
                                                        Prezzo: € ${pizza.price}
-                                                  </div>
-
                                               </div>
                                            </div>
                                        </div>                  
                                    </div>
-                                </div>
-                           </div>
-                          `
+                             
+                                `
+                        });
 
-                    });
+                    }
+                
+                })
 
-                }
-
-            })
+            }
         }
-
                        
 
     </script>
