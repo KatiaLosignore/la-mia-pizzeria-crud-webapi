@@ -41,10 +41,9 @@ namespace la_mia_pizzeria_static.Database
 
         public List<Pizza> GetPizzasByTitle(string title)
         {
-            List<Pizza> foundedPizzsd =
-              _db.Pizzas.Where(pizza => pizza.Name.ToLower().Contains(title.ToLower())).ToList();
+            List<Pizza> foundedPizzas = _db.Pizzas.Where(pizza => pizza.Name.ToLower().Contains(title.ToLower())).ToList();
 
-            return foundedPizzsd;
+            return foundedPizzas;
         }
 
         public bool AddPizza(Pizza pizzaToAdd)

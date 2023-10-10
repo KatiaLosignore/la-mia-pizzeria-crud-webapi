@@ -36,6 +36,7 @@ namespace la_mia_pizzeria_static.Models
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
 
+        
         // creo la relazione N a N con la classe Ingredient
         public List<Ingredient>? Ingredients { get; set; }
 
