@@ -8,62 +8,136 @@
 }
 
 
-@model List<Pizza>
 
-@if (Model.Count() == 0)
-{
-    <h3>Non ci sono pizze da mostrare</h3>
-}
-else
-{
+<div class="container">
+
     <a class="btn btn-danger mb-5" href="@Url.Action("Index", "Pizza")" role="button">
         <b>Register</b>
     </a>
 
-    <div class="album py-4 rounded-5">
-        <div class="container">
-            <div class="row my-3">
-                <div class="col-12">            
-                    <h1 class="text-danger display-2 text-center mb-5 fw-bold">Benvenuto nel sito della mia pizzeria</h1>
-                    <button class="btn btn-success mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasManagePizza" aria-controls="offcanvasManagePizza">
-                        CARRELLO
-                    </button>
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-                @foreach (Pizza pizza in Model)
-                {
-                    <div class="col card-pizza">
-                        <div class="card shadow-sm">
-                            <img src="@pizza.Image" class="card-img-top object-fit-cover" height="225" role="img" focusable="false" alt="La vera Pizza" />
-                            <div class="card-body">
-                                <h3 class="card-text">@pizza.Name</h3>
-                                <p class="card-text fw-bold">Categoria: @pizza.Category?.Title</p>
-                                <p class="card-text mb-3">@pizza.Description</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group ">
-                                        <button type="button" class="btn text-light btn-warning btn-sm btn-outline-primary fw-bold">+</button>
-                                        <button type="button" class="btn text-light btn-danger btn-sm btn-outline-secondary fw-bold">-</button>
-                                    </div>
-                                </div>
-                                <div class="card-item fw-semibold pt-2 text-body-secondary bg-white px-0">
-                                    Prezzo: € @pizza.Price.ToString("0.00")
-                                </div>
-                                <div class="mtext-center button-details">
-                                    <a class="btn btn-danger btn-sm" href="@Url.Action("Details", "Home", new { id = pizza.Id })">
-                                        <b>Vedi dettaglio pizza</b>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-white text-center">Lista delle pizze</h1>
+            <div>
+                <input id="js_search_box" type="text" class="form-control my-3" placeholder="Cerca per titolo...">
             </div>
         </div>
     </div>
+
+    <div id="loading-spinner" class="row">
+        <div class="col-12">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-white">Sto cercando le pizze disponibili...</span>
+        </div>
+    </div>
+
+
+
+    <!-- Contenitore da renderizzare nel caso non ci siano pizze o non ho pizze con la query di ricerca -->
+    <div id="row-no-pizzas" class="row d-none">
+        <div class="col-12">
+            Nessuna pizza trovata!
+        </div>
+    </div>
+
+    <div id="list-of-pizzas" class="row d-none">
+        <!-- questo sontenitore verrà usato per mostrare le pizze ricercati -->
+    </div>
+
+</div>
+
+
+    
+
+    
+    
+@section Scripts {
+
+    <script type="text/javascript">
+
+        loadPizzas();
+        document.getElementById("js_search_box").addEventListener('keyup', searchArticles);
+
+        function searchArticles() {
+            let searchString = document.getElementById("js_search_box").value;
+
+            loadArticles(searchString);
+        }
+
+
+        function loadPizzas(){
+            axios.get('/api/Pizzas/GetPizzas').then((res) => {
+                console.log(res);
+                    let divNoPizzas = document.getElementById('row-no-pizzas')
+                    let loadinSpinnerElement = document.getElementById("loading-spinner");
+                    let listOfPizzasElement = document.getElementById('list-of-pizzas');
+
+                if (res.data.length == 0) {
+
+                    divNoPizzas.classList.remove('d-none');
+                    loadinSpinnerElement.classList.add("d-none");
+
+                } else {
+                    loadinSpinnerElement.classList.add("d-none");
+                    listOfPizzasElement.classList.remove("d-none");
+
+                    res.data.forEach(pizza => {
+                        console.log(pizza);
+
+                        listOfPizzasElement.innerHTML +=
+                          `<div class="album py-4 rounded-5">
+                               <div class="container">
+                                   <div class="row my-3">
+                                       <div class="col-12"                                  
+                                           <button class="btn btn-success mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasManagePizza" aria-    controls="offcanvasManagePizza">
+                                               CARRELLO
+                                           </button>
+                                       </div>
+                                   </div>
+                                   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                                       <div class="col card-pizza d-flex">
+                                          <div class="card shadow-sm">
+                                              <img src="${pizza.image}" class="card-img-top object-fit-cover" height="225" role="img" focusable="false" alt="${pizza.name}" />
+                                              <div class="card-body">
+                                                   <h3 class="card-text">${pizza.name}</h3>
+                                                   <p class="card-text fw-bold">Categoria: ${pizza.category?.title}</p>
+                                                   <p class="card-text mb-3">${pizza.description}</p>
+                                                   <div class="d-flex justify-content-between align-items-center">
+                                                       <div class="btn-group ">
+                                                           <button type="button" class="btn text-light btn-warning btn-sm btn-outline-primary fw-bold">+</button>
+                                                           <button type="button" class="btn text-light btn-danger btn-sm btn-outline-secondary fw-bold">-</button>
+                                                       </div>
+                                                  </div>
+                                                  <div class="card-item fw-semibold pt-2 text-body-secondary bg-white px-0">
+                                                       Prezzo: € ${pizza.price}
+                                                  </div>
+
+                                              </div>
+                                           </div>
+                                       </div>                  
+                                   </div>
+                                </div>
+                           </div>
+                          `
+
+                    });
+
+                }
+
+            })
+        }
+
+                       
+
+    </script>
+
 }
 
+
+
+    
 
 
 
