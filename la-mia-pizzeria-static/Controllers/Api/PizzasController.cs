@@ -36,13 +36,16 @@ namespace la_mia_pizzeria_static.Controllers.Api
         [HttpGet]
         public IActionResult SearchPizza(string? search)
         {
+            List<Pizza> foundedPizzas = new List<Pizza>();
+
             if (search == null)
             {
-                return BadRequest(new { Message = "Non hai inserito nessuna stringa di ricerca" });
+                foundedPizzas = _repoPizzas.GetPizzas();
             }
-
-
-            List<Pizza> foundedPizzas = _repoPizzas.GetPizzasByTitle(search);
+            else
+            {
+                foundedPizzas = _repoPizzas.GetPizzasByTitle(search);
+            }
 
             return Ok(foundedPizzas);
 

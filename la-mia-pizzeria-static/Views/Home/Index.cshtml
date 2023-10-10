@@ -57,17 +57,21 @@
     <script type="text/javascript">
 
         loadPizzas();
-        document.getElementById("js_search_box").addEventListener('keyup', searchArticles);
+        document.getElementById("js_search_box").addEventListener('keyup', searchPizzas);
 
-        function searchArticles() {
+        function searchPizzas() {
             let searchString = document.getElementById("js_search_box").value;
 
-            loadArticles(searchString);
+            loadPizzas(searchString);
         }
 
 
-        function loadPizzas(){
-            axios.get('/api/Pizzas/GetPizzas').then((res) => {
+        function loadPizzas(searchParam) {
+            axios.get('/api/Pizzas/SearchPizza', {
+                params: {
+                     search: searchParam
+                }
+            }).then((res) => {
                 console.log(res);
                     let divNoPizzas = document.getElementById('row-no-pizzas')
                     let loadinSpinnerElement = document.getElementById("loading-spinner");
@@ -81,6 +85,9 @@
                 } else {
                     loadinSpinnerElement.classList.add("d-none");
                     listOfPizzasElement.classList.remove("d-none");
+
+                    listOfPizzasElement.innerHTML = "";
+
 
                     res.data.forEach(pizza => {
                         console.log(pizza);
@@ -102,7 +109,7 @@
                                               <img src="${pizza.image}" class="card-img-top object-fit-cover" height="225" role="img" focusable="false" alt="${pizza.name}" />
                                               <div class="card-body">
                                                    <h3 class="card-text">${pizza.name}</h3>
-                                                   <p class="card-text fw-bold">Categoria: ${pizza.category?.title}</p>
+                                                           <p class="card-text fw-bold">Categoria: ${pizza.category ? pizza.category.title : " "}</p>
                                                    <p class="card-text mb-3">${pizza.description}</p>
                                                    <div class="d-flex justify-content-between align-items-center">
                                                        <div class="btn-group ">

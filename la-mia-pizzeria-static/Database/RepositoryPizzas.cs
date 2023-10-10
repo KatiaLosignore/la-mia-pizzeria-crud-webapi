@@ -35,14 +35,14 @@ namespace la_mia_pizzeria_static.Database
 
         public List<Pizza> GetPizzas()
         {
-            List<Pizza> pizzas = _db.Pizzas.Include(pizza => pizza.Ingredients).ToList();
+            List<Pizza> pizzas = _db.Pizzas.Include(pizza => pizza.Ingredients).Include(pizza => pizza.Category).ToList();
             return pizzas;
         }
 
         public List<Pizza> GetPizzasByTitle(string title)
         {
-            List<Pizza> foundedPizzas = _db.Pizzas.Where(pizza => pizza.Name.ToLower().Contains(title.ToLower())).ToList();
-
+            List<Pizza> foundedPizzas = _db.Pizzas.Where(pizza => pizza.Name.ToLower().Contains(title.ToLower())).Include(pizza => pizza.Category).Include(pizza => pizza.Ingredients).ToList();
+            
             return foundedPizzas;
         }
 
