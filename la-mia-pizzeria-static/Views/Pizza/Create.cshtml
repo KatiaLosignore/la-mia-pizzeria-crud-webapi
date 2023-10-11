@@ -101,14 +101,15 @@
             
             //creo oggetto pizza del form
             let newPizza = {
-                Name: inputPizzaName,
-                Description: inputPizzaDescription,
-                Price: inputPizzaPrice,
-                Image: inputPizzaImagePath,
+                Name: inputName,
+                Description: inputDescription,
+                Price: inputPrice,
+                Image: inputImagePath,
                 CategoryId: inputCategoryId
             }
 
-            createForm.addEventListener{
+            createForm.addEventListener('click', function () {
+                
 
                 axios.post('/api/Pizzas/Create',newPizza,
                     {
@@ -117,7 +118,7 @@
                     }
                 });
             });
-        }
+        })
 
 
     </script>

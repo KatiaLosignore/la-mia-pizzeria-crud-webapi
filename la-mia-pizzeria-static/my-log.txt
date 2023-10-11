@@ -1553,3 +1553,12 @@
 10-10-2023 21:16:12 LOG: L'utente è arrivato sulla pagina Pizza > Index
 10-10-2023 21:16:23 LOG: L'utente è arrivato sulla pagina Home > Index
 10-10-2023 21:16:40 LOG: L'utente è arrivato sulla pagina Pizza > Index
+10-10-2023 21:21:51 LOG: L'utente è arrivato sulla pagina Pizza > Index
+10-10-2023 21:31:28 LOG: L'utente è arrivato sulla pagina Pizza > Index
+10-10-2023 21:31:31 LOG: L'utente è arrivato sulla pagina Home > Index
+10-10-2023 21:32:22 LOG: L'utente è arrivato sulla pagina Pizza > Index
+10-10-2023 21:33:05 LOG: L'utente è arrivato sulla pagina Pizza > Index
+10-10-2023 21:33:10 LOG: L'utente è arrivato sulla pagina Pizza > Index
+11-10-2023 09:48:32 LOG: L'utente è arrivato sulla pagina Pizza > Index
+11-10-2023 09:48:37 LOG: L'utente è arrivato sulla pagina Home > Index
+11-10-2023 09:48:47 LOG: L'utente è arrivato sulla pagina Pizza > Index
